@@ -13,10 +13,20 @@ export class GifsService {
     return [...this._tagsHistory]
   }
 
-  searchTag(tag: string): void {
+  private organizeHistory(tag: string): void {
+    tag = tag.toLowerCase();
+    if(this._tagsHistory.includes(tag)) {
+      this._tagsHistory = this._tagsHistory.filter( (oldTag) => oldTag !== tag)
+    }
+    if (this._tagsHistory.length === 10) {
+      this._tagsHistory.pop()
+    }
     this._tagsHistory.unshift(tag);
-    console.log(this.tagsHistory);
   }
 
+  searchTag(tag: string): void {
+    if (tag === "") return;
+    this.organizeHistory(tag);
+  }
 
 }
