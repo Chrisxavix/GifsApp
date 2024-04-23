@@ -15,4 +15,9 @@ export class SidebarComponent {
   get tagsHistory(): string[] {
     return this.gifsService.tagsHistory;
   }
+
+  searchTag(tag: string): void {
+    console.log("PRESIONADO: ", tag);
+    this.gifsService.searchTag(tag);
+  }
 }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GifsService } from '../../services/gifs.service';
+import { Gif } from '../../Interfaces/gifs.interfaces';
 
 @Component({
   selector: 'gifs-card-list',
@@ -8,5 +9,7 @@ import { GifsService } from '../../services/gifs.service';
 })
 export class CardListComponent {
 
+  @Input()
+  public gifsListToPaint: Gif[] = [];
 
 }
