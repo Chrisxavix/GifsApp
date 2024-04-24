@@ -13,9 +13,10 @@ export class GifsService {
   public gifList:       Gif[] = [];
 
   constructor(
-    private http: HttpClient,
-
-  ) { }
+    private http: HttpClient
+  ) {
+    this.loadLocalStorage();
+  }
 
   get tagsHistory() {
     return [...this._tagsHistory]
@@ -30,6 +31,19 @@ export class GifsService {
       this._tagsHistory.pop()
     }
     this._tagsHistory.unshift(tag);
+    this.saveLocalStorage()
+  }
+
+  private saveLocalStorage(): void {
+    localStorage.setItem("history", JSON.stringify(this._tagsHistory));
+  }
+
+  private loadLocalStorage(): void {
+    if(!localStorage.getItem("history")) return;
+    /* ! significa que siempre va a haber data */
+    this._tagsHistory = JSON.parse(localStorage.getItem("history")!);
+    if(this._tagsHistory.length === 0) return;
+    this.searchTag(this._tagsHistory[0]);
   }
 
   searchTag(tag: string): void {
